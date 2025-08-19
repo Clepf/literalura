@@ -39,7 +39,7 @@ public interface AutorRepository extends JpaRepository<Autor, Long> {
     /**
      * Busca autores que estavam vivos em um determinado ano
      * Um autor estava vivo se nasceu antes ou no ano especificado
-     * E morreu depois do ano especificado ou ainda está vivo (ano_falecimento é null)
+     * E morreu depois do ano especificado ou continua vivo (ano_falecimento é null)
      *
      * @param ano Ano para verificar
      * @return Lista de autores vivos no ano especificado

@@ -113,7 +113,7 @@ public class Livro {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Livro livro = (Livro) obj;
-        return id != null ? id.equals(livro.id) : livro.id == null;
+        return java.util.Objects.equals(id, livro.id);
     }
 
     @Override
