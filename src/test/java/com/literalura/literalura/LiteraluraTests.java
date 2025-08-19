@@ -20,7 +20,6 @@ import com.literalura.literalura.dto.GutendexResponseDTO;
  */
 @SpringBootTest
 @ActiveProfiles("test")
-@Import(TestcontainersConfiguration.class)
 public class LiteraluraTests {
 
     private ConversaoService conversaoService;
