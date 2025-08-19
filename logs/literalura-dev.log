@@ -5099,3 +5099,17 @@ java.util.NoSuchElementException: No line found
 2025-08-19 14:33:13.719 [main] DEBUG com.literalura.literalura.service.ApiService - Resposta recebida: status=200, tamanho=52bytes
 2025-08-19 14:34:00.711 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-08-19 14:34:00.713 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-08-19 14:36:50.096 [main] INFO  com.literalura.literalura.LiteraluraApplication - Starting LiteraluraApplication using Java 24.0.1 with PID 3324 (C:\Users\julio\Desktop\G8 One\Java e Spring Framework G8 - ONE\2 - Desafio - LiteraLura\literalura\target\classes started by julio in C:\Users\julio\Desktop\G8 One\Java e Spring Framework G8 - ONE\2 - Desafio - LiteraLura\literalura)
+2025-08-19 14:36:50.097 [main] DEBUG com.literalura.literalura.LiteraluraApplication - Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-08-19 14:36:50.097 [main] INFO  com.literalura.literalura.LiteraluraApplication - The following 1 profile is active: "dev"
+2025-08-19 14:36:51.232 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-08-19 14:36:51.413 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4e3f2908
+2025-08-19 14:36:51.414 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-08-19 14:36:52.636 [main] INFO  com.literalura.literalura.service.ApiService - ApiService inicializado com timeout de 30s
+2025-08-19 14:36:53.593 [main] INFO  com.literalura.literalura.LiteraluraApplication - Started LiteraluraApplication in 4.015 seconds (process running for 4.4)
+2025-08-19 14:37:00.600 [main] INFO  com.literalura.literalura.service.ApiService - Buscando livros por título: 'ulysses'
+2025-08-19 14:37:00.601 [main] DEBUG com.literalura.literalura.service.ApiService - Iniciando requisição para: https://gutendex.com/books/?search=ulysses
+2025-08-19 14:37:07.490 [main] DEBUG com.literalura.literalura.service.ApiService - Requisição concluída em 6887ms (tentativa 1)
+2025-08-19 14:37:07.490 [main] DEBUG com.literalura.literalura.service.ApiService - Resposta recebida: status=200, tamanho=63117bytes
+2025-08-19 14:37:25.390 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-08-19 14:37:25.391 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

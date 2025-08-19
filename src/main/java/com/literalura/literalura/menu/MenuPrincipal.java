@@ -50,7 +50,7 @@ public class MenuPrincipal implements CommandLineRunner {
         limparTela();
         System.out.println("""
                 ╔══════════════════════════════════════════════════════════════╗
-                ║                         📚 LITERALURA 📚                    ║
+                ║                           LITERALURA                         ║
                 ║                                                              ║
                 ║              Catálogo Digital de Livros Clássicos            ║
                 ║                     Challenge Alura + ONE                    ║
@@ -75,7 +75,7 @@ public class MenuPrincipal implements CommandLineRunner {
         limparTela();
         System.out.println("""
                 ╔══════════════════════════════════════════════════════════════╗
-                ║                         📚 LITERALURA 📚                     ║
+                ║                           LITERALURA                         ║
                 ╠══════════════════════════════════════════════════════════════╣
                 ║                                                              ║
                 ║  🔍 1 - Buscar livro por título                              ║
@@ -153,13 +153,13 @@ public class MenuPrincipal implements CommandLineRunner {
         limparTela();
         System.out.println("""
                 ╔══════════════════════════════════════════════════════════════╗
-                ║                    👋 ATÉ LOGO! 👋                          ║
+                ║                         ATÉ LOGO!                            ║
                 ║                                                              ║
-                ║            Obrigado por usar o LiterAlura!                   ║
+                ║              Obrigado por usar o LiterAlura!                 ║
                 ║                                                              ║
-                ║        📚 Continue explorando o mundo da literatura! 📚      ║
+                ║           Continue explorando o mundo da literatura!         ║
                 ║                                                              ║
-                ║              Developed with ❤️ for Alura + ONE               ║
+                ║                                                              ║
                 ╚══════════════════════════════════════════════════════════════╝
                 """);
     }
