@@ -71,7 +71,7 @@ public class MenuPrincipal implements CommandLineRunner {
     /**
      * Exibe o menu principal
      */
-    private void exibirMenu() {
+    public void exibirMenu() {
         limparTela();
         System.out.println("""
                 ╔══════════════════════════════════════════════════════════════╗
