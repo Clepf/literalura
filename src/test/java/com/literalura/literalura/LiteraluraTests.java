@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +20,7 @@ import com.literalura.literalura.dto.GutendexResponseDTO;
  */
 @SpringBootTest
 @ActiveProfiles("test")
+@Import(TestcontainersConfiguration.class)
 public class LiteraluraTests {
 
     private ConversaoService conversaoService;
@@ -183,9 +185,7 @@ public class LiteraluraTests {
     @DisplayName("Deve tratar anos de vida inválidos")
     void testValidacaoAnosVida() {
         // Ano de nascimento posterior ao falecimento deve gerar erro
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Autor("Autor Inválido", 2000, 1990);
-        });
+        assertThrows(IllegalArgumentException.class, () -> new Autor("Autor Inválido", 2000, 1990));
     }
 
     @Test
