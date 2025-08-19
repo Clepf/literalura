@@ -139,7 +139,7 @@ public class Autor {
     }
 
     /**
-     * Verifica se o autor ainda está vivo (sem data de falecimento)
+     * Verifica se o autor continua vivo (sem data de falecimento)
      */
     public boolean isVivo() {
         return anoFalecimento == null;

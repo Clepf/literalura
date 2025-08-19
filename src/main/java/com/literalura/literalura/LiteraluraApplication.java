@@ -5,16 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * Classe principal da aplicação LiterAlura
- *
  * Esta aplicação implementa o Challenge LiterAlura da Alura + Oracle ONE
- *
  * Funcionalidades principais:
  * - Busca de livros na API Gutendx
  * - Armazenamento de livros e autores em PostgreSQL
  * - Consultas por título, autor, idioma
  * - Listagem de autores vivos em determinado ano
  * - Interface via console interativo
- *
  * Tecnologias utilizadas:
  * - Java 17+
  * - Spring Boot 3.2.3
@@ -31,8 +28,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LiteraluraApplication {
 
     /**
-     * Método principal que inicia a aplicação Spring Boot
-     *
+     * Metodo principal que inicia a aplicação Spring Boot
      * @param args Argumentos da linha de comando
      */
     public static void main(String[] args) {

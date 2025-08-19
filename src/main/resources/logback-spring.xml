@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <!-- Propriedades -->
+    <!-- Propriedades por profile -->
     <springProfile name="!production">
         <property name="LOG_LEVEL" value="DEBUG"/>
-        <property name="LOG_FILE" value="logs/literalura-dev.log"/>
+        <property name="LOG_FILE"  value="logs/literalura-dev.log"/>
     </springProfile>
 
     <springProfile name="production">
         <property name="LOG_LEVEL" value="INFO"/>
-        <property name="LOG_FILE" value="logs/literalura-prod.log"/>
+        <property name="LOG_FILE"  value="logs/literalura-prod.log"/>
     </springProfile>
 
-    <!-- Console Appender -->
+    <!-- Appender de console -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>
-                %d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
-            </pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- File Appender -->
+    <!-- Appender de arquivo com rotação por tamanho+data -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_FILE}</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>
-                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
-            </pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
         </encoder>
-
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- Combina rotação diária com indexação por tamanho -->
             <fileNamePattern>logs/literalura-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
             <maxHistory>30</maxHistory>
@@ -38,7 +34,7 @@
         </rollingPolicy>
     </appender>
 
-    <!-- Error File Appender -->
+    <!-- Appender de erros separado, rotação diária -->
     <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/literalura-errors.log</file>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -46,41 +42,36 @@
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
-
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>
-                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
-                %ex{full}
-            </pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n%ex{full}</pattern>
         </encoder>
-
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>logs/literalura-errors-%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>90</maxHistory>
         </rollingPolicy>
     </appender>
 
-    <!-- Loggers específicos -->
+    <!-- Loggers específicos do app -->
     <logger name="com.literalura.literalura" level="${LOG_LEVEL}" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="ERROR_FILE"/>
     </logger>
-
     <logger name="com.literalura.literalura.service.ApiService" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </logger>
 
+    <!-- Silenciar logs excessivos de frameworks -->
     <logger name="org.springframework" level="WARN"/>
-    <logger name="org.hibernate" level="WARN"/>
+    <logger name="org.hibernate"     level="WARN"/>
 
     <springProfile name="production">
         <logger name="org.springframework" level="ERROR"/>
-        <logger name="org.hibernate" level="ERROR"/>
+        <logger name="org.hibernate"     level="ERROR"/>
     </springProfile>
 
-    <!-- Root Logger -->
+    <!-- Root logger padrão -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>

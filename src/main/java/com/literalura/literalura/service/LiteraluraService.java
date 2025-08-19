@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -66,7 +67,8 @@ public class LiteraluraService {
             System.out.println("=" .repeat(80));
 
             // Verifica se já existe no banco
-            if (livroRepository.existsById(livroDTO.id())) {
+            if (livroDTO != null && livroDTO.id() != null
+                    && livroRepository.existsById(livroDTO.id())) {
                 System.out.println("⚠️  Este livro já está cadastrado no banco de dados!");
                 return;
             }
@@ -86,25 +88,32 @@ public class LiteraluraService {
         }
     }
 
+    // DRY: imprime cabeçalhos de tabela
+    private void imprimirCabecalho(String[] colunas, int[] larguras) {
+        StringBuilder fmt = new StringBuilder();
+        for (int w : larguras) {
+            fmt.append("%-").append(w).append("s | ");
+        }
+        System.out.printf(fmt.toString().replaceAll(" \\| $", "%n"), (Object[]) colunas);
+        System.out.println("-".repeat(Arrays.stream(larguras).sum() + 3 * (larguras.length - 1)));
+    }
+
     /**
      * Lista todos os livros cadastrados no banco
      */
     public void listarTodosOsLivros() {
         List<Livro> livros = livroRepository.findAllByOrderByTituloAsc();
-
         if (livros.isEmpty()) {
             System.out.println("📚 Nenhum livro cadastrado ainda.");
             return;
         }
-
-        System.out.println("\\n📚 LIVROS CADASTRADOS (" + livros.size() + " livro(s)):");
-        System.out.println("=" .repeat(120));
-        System.out.printf("%-50s | %-30s | %-10s | %12s%n",
-                "TÍTULO", "AUTOR", "IDIOMA", "DOWNLOADS");
-        System.out.println("-" .repeat(120));
-
+        System.out.println("\n📚 LIVROS CADASTRADOS (" + livros.size() + " livro(s)):");
+        imprimirCabecalho(
+                new String[]{ "TÍTULO", "AUTOR", "IDIOMA", "DOWNLOADS" },
+                new int[]   { 50,       30,      10,        12 }
+        );
         livros.forEach(System.out::println);
-        System.out.println("=" .repeat(120));
+        System.out.println("=".repeat(120));
     }
 
     /**
@@ -118,14 +127,17 @@ public class LiteraluraService {
             return;
         }
 
-        System.out.println("\\n👤 AUTORES CADASTRADOS (" + autores.size() + " autor(es)):");
-        System.out.println("=" .repeat(120));
-        System.out.printf("%-40s | %-6s | %-6s | %8s%n",
-                "NOME", "NASC.", "MORTE", "LIVROS");
-        System.out.println("-" .repeat(120));
+        System.out.println("\n👤 AUTORES CADASTRADOS (" + autores.size() + " autor(es)):");
+        System.out.println("=".repeat(120));
+
+        // Cabeçalho via método DRY
+        imprimirCabecalho(
+                new String[] { "NOME", "NASC.", "MORTE", "LIVROS" },
+                new int[]    { 40,      6,       6,       8 }
+        );
 
         autores.forEach(System.out::println);
-        System.out.println("=" .repeat(120));
+        System.out.println("=".repeat(120));
     }
 
     /**
@@ -134,25 +146,20 @@ public class LiteraluraService {
     public void listarAutoresVivosEmAno() {
         System.out.print("Digite o ano para consulta: ");
         String anoTexto = scanner.nextLine().trim();
-
         try {
             int ano = Integer.parseInt(anoTexto);
-            List<Autor> autoresVivos = autorRepository.findAutoresVivosNoAno(ano);
-
-            if (autoresVivos.isEmpty()) {
+            List<Autor> vivos = autorRepository.findAutoresVivosNoAno(ano);
+            if (vivos.isEmpty()) {
                 System.out.println("👤 Nenhum autor estava vivo em " + ano + ".");
                 return;
             }
-
-            System.out.println("\\n👤 AUTORES VIVOS EM " + ano + " (" + autoresVivos.size() + " autor(es)):");
-            System.out.println("=" .repeat(120));
-            System.out.printf("%-40s | %-6s | %-6s | %8s%n",
-                    "NOME", "NASC.", "MORTE", "LIVROS");
-            System.out.println("-" .repeat(120));
-
-            autoresVivos.forEach(System.out::println);
-            System.out.println("=" .repeat(120));
-
+            System.out.println("\n👤 AUTORES VIVOS EM " + ano + " (" + vivos.size() + " autor(es)):");
+            imprimirCabecalho(
+                    new String[]{ "NOME", "NASC.", "MORTE", "LIVROS" },
+                    new int[]   { 40,      6,       6,       8 }
+            );
+            vivos.forEach(System.out::println);
+            System.out.println("=".repeat(120));
         } catch (NumberFormatException e) {
             System.out.println("❌ Ano inválido! Digite apenas números.");
         }
@@ -162,36 +169,29 @@ public class LiteraluraService {
      * Lista livros por idioma
      */
     public void listarLivrosPorIdioma() {
-        // Mostra idiomas disponíveis
         List<String> idiomas = livroRepository.findIdiomasDistintos();
         if (!idiomas.isEmpty()) {
-            System.out.println("\\n📋 Idiomas disponíveis: " + String.join(", ", idiomas));
+            System.out.println("\n📋 Idiomas disponíveis: " + String.join(", ", idiomas));
         }
-
         System.out.println("ℹ️  Códigos comuns: pt (Português), en (Inglês), es (Espanhol), fr (Francês)");
-        System.out.print("Digite o código do idioma (ex: pt, en, es): ");
+        System.out.print("Digite o código do idioma: ");
         String idioma = scanner.nextLine().trim().toLowerCase();
-
         if (idioma.isEmpty()) {
             System.out.println("❌ Código de idioma não pode estar vazio!");
             return;
         }
-
         List<Livro> livros = livroRepository.findByIdiomaIgnoreCase(idioma);
-
         if (livros.isEmpty()) {
             System.out.println("📚 Nenhum livro encontrado no idioma: " + idioma.toUpperCase());
             return;
         }
-
-        System.out.println("\\n📚 LIVROS EM " + idioma.toUpperCase() + " (" + livros.size() + " livro(s)):");
-        System.out.println("=" .repeat(120));
-        System.out.printf("%-50s | %-30s | %-10s | %12s%n",
-                "TÍTULO", "AUTOR", "IDIOMA", "DOWNLOADS");
-        System.out.println("-" .repeat(120));
-
+        System.out.println("\n📚 LIVROS EM " + idioma.toUpperCase() + " (" + livros.size() + " livro(s)):");
+        imprimirCabecalho(
+                new String[]{ "TÍTULO", "AUTOR", "IDIOMA", "DOWNLOADS" },
+                new int[]   { 50,       30,      10,        12 }
+        );
         livros.forEach(System.out::println);
-        System.out.println("=" .repeat(120));
+        System.out.println("=".repeat(120));
     }
 
     /**
