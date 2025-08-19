@@ -23,7 +23,7 @@ public class ApiService {
     private static final Logger logger = LoggerFactory.getLogger(ApiService.class);
 
     private final HttpClient httpClient;
-    private static final String BASE_URL = "https://gutendx.com/books/";
+    private static final String BASE_URL = "https://gutendex.com/books/";
     private static final Duration TIMEOUT = Duration.ofSeconds(30);
     private static final int MAX_RETRIES = 3;
 

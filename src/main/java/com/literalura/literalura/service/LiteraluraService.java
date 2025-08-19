@@ -7,6 +7,7 @@ import com.literalura.literalura.model.Autor;
 import com.literalura.literalura.model.Livro;
 import com.literalura.literalura.repository.AutorRepository;
 import com.literalura.literalura.repository.LivroRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,10 +62,10 @@ public class LiteraluraService {
             }
 
             LivroDTO livroDTO = response.getPrimeiroLivro();
-            System.out.println("\\n📚 Livro encontrado:");
-            System.out.println("=" .repeat(80));
+            System.out.println("\n📚 Livro encontrado:");
+            System.out.println("=".repeat(80));
             System.out.println(livroDTO);
-            System.out.println("=" .repeat(80));
+            System.out.println("=".repeat(80));
 
             // Verifica se já existe no banco
             if (livroDTO != null && livroDTO.id() != null
@@ -73,7 +74,7 @@ public class LiteraluraService {
                 return;
             }
 
-            System.out.print("\\n💾 Deseja salvar este livro no banco de dados? (s/N): ");
+            System.out.print("\n💾 Deseja salvar este livro no banco de dados? (s/N): ");
             String resposta = scanner.nextLine().trim().toLowerCase();
 
             if ("s".equals(resposta) || "sim".equals(resposta)) {
@@ -101,6 +102,7 @@ public class LiteraluraService {
     /**
      * Lista todos os livros cadastrados no banco
      */
+    @Transactional(readOnly = true)
     public void listarTodosOsLivros() {
         List<Livro> livros = livroRepository.findAllByOrderByTituloAsc();
         if (livros.isEmpty()) {
@@ -118,7 +120,9 @@ public class LiteraluraService {
 
     /**
      * Lista todos os autores cadastrados no banco
+     * CORREÇÃO: Adicionada @Transactional e inicialização das coleções lazy
      */
+    @Transactional(readOnly = true)
     public void listarTodosOsAutores() {
         List<Autor> autores = autorRepository.findAllByOrderByNomeAsc();
 
@@ -126,6 +130,12 @@ public class LiteraluraService {
             System.out.println("👤 Nenhum autor cadastrado ainda.");
             return;
         }
+
+        // CORREÇÃO: Inicializa as coleções lazy enquanto a transação está ativa
+        autores.forEach(autor -> {
+            // Força o carregamento da coleção de livros
+            Hibernate.initialize(autor.getLivros());
+        });
 
         System.out.println("\n👤 AUTORES CADASTRADOS (" + autores.size() + " autor(es)):");
         System.out.println("=".repeat(120));
@@ -142,17 +152,27 @@ public class LiteraluraService {
 
     /**
      * Lista autores vivos em um determinado ano
+     * CORREÇÃO: Adicionada @Transactional e inicialização das coleções lazy
      */
+    @Transactional(readOnly = true)
     public void listarAutoresVivosEmAno() {
         System.out.print("Digite o ano para consulta: ");
         String anoTexto = scanner.nextLine().trim();
         try {
             int ano = Integer.parseInt(anoTexto);
             List<Autor> vivos = autorRepository.findAutoresVivosNoAno(ano);
+
             if (vivos.isEmpty()) {
                 System.out.println("👤 Nenhum autor estava vivo em " + ano + ".");
                 return;
             }
+
+            // CORREÇÃO: Inicializa as coleções lazy enquanto a transação está ativa
+            vivos.forEach(autor -> {
+                // Força o carregamento da coleção de livros
+                Hibernate.initialize(autor.getLivros());
+            });
+
             System.out.println("\n👤 AUTORES VIVOS EM " + ano + " (" + vivos.size() + " autor(es)):");
             imprimirCabecalho(
                     new String[]{ "NOME", "NASC.", "MORTE", "LIVROS" },
@@ -168,6 +188,7 @@ public class LiteraluraService {
     /**
      * Lista livros por idioma
      */
+    @Transactional(readOnly = true)
     public void listarLivrosPorIdioma() {
         List<String> idiomas = livroRepository.findIdiomasDistintos();
         if (!idiomas.isEmpty()) {
@@ -197,13 +218,14 @@ public class LiteraluraService {
     /**
      * Exibe estatísticas do catálogo
      */
+    @Transactional(readOnly = true)
     public void exibirEstatisticas() {
         long totalLivros = livroRepository.count();
         long totalAutores = autorRepository.count();
         List<String> idiomas = livroRepository.findIdiomasDistintos();
 
-        System.out.println("\\n📊 ESTATÍSTICAS DO CATÁLOGO:");
-        System.out.println("=" .repeat(50));
+        System.out.println("\n📊 ESTATÍSTICAS DO CATÁLOGO:");
+        System.out.println("=".repeat(50));
         System.out.println("📚 Total de livros: " + totalLivros);
         System.out.println("👤 Total de autores: " + totalAutores);
         System.out.println("🌍 Idiomas disponíveis: " + idiomas.size());
@@ -211,12 +233,12 @@ public class LiteraluraService {
 
         if (totalLivros > 0) {
             List<Livro> topLivros = livroRepository.findTopLivrosMaisBaixados(3);
-            System.out.println("\\n🏆 TOP 3 MAIS BAIXADOS:");
+            System.out.println("\n🏆 TOP 3 MAIS BAIXADOS:");
             topLivros.forEach(livro ->
                     System.out.println("   • " + livro.getTitulo() + " - " +
                             String.format("%,d", livro.getNumeroDownloads()) + " downloads"));
         }
-        System.out.println("=" .repeat(50));
+        System.out.println("=".repeat(50));
     }
 
     /**

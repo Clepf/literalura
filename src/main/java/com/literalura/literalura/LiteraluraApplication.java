@@ -13,7 +13,7 @@ public class LiteraluraApplication implements CommandLineRunner {
     @Autowired
     private MenuPrincipal menuPrincipal;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { // Garanta que tem os colchetes
         SpringApplication.run(LiteraluraApplication.class, args);
     }
 
