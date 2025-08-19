@@ -131,10 +131,9 @@ public class MenuPrincipal implements CommandLineRunner {
                 literaluraService.listarLivrosPorIdioma();
             }
             case "6" -> {
-                System.out.println("📊 ESTATÍSTICAS DO CATÁLOGO");
-                System.out.println("=" .repeat(60));
-                literaluraService.exibirEstatisticas();
+                literaluraService.exibirEstatisticas();  // Só chama o service
             }
+
             case "clear", "cls" -> {
                 limparTela();
                 return; // Não mostra "pressione ENTER"

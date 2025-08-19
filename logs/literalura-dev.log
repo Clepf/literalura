@@ -5075,3 +5075,27 @@ java.util.NoSuchElementException: No line found
 2025-08-19 03:16:54.263 [main] DEBUG com.literalura.literalura.service.ApiService - Resposta recebida: status=200, tamanho=2343bytes
 2025-08-19 03:17:24.326 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2025-08-19 03:17:24.328 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-08-19 14:31:09.810 [main] INFO  com.literalura.literalura.LiteraluraApplication - Starting LiteraluraApplication using Java 24.0.1 with PID 21356 (C:\Users\julio\Desktop\G8 One\Java e Spring Framework G8 - ONE\2 - Desafio - LiteraLura\literalura\target\classes started by julio in C:\Users\julio\Desktop\G8 One\Java e Spring Framework G8 - ONE\2 - Desafio - LiteraLura\literalura)
+2025-08-19 14:31:09.811 [main] DEBUG com.literalura.literalura.LiteraluraApplication - Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-08-19 14:31:09.811 [main] INFO  com.literalura.literalura.LiteraluraApplication - The following 1 profile is active: "dev"
+2025-08-19 14:31:10.925 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-08-19 14:31:11.103 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@72443081
+2025-08-19 14:31:11.104 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-08-19 14:31:12.351 [main] INFO  com.literalura.literalura.service.ApiService - ApiService inicializado com timeout de 30s
+2025-08-19 14:31:13.361 [main] INFO  com.literalura.literalura.LiteraluraApplication - Started LiteraluraApplication in 4.055 seconds (process running for 4.39)
+2025-08-19 14:31:43.025 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-08-19 14:31:43.028 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-08-19 14:32:42.073 [main] INFO  com.literalura.literalura.LiteraluraApplication - Starting LiteraluraApplication using Java 24.0.1 with PID 2072 (C:\Users\julio\Desktop\G8 One\Java e Spring Framework G8 - ONE\2 - Desafio - LiteraLura\literalura\target\classes started by julio in C:\Users\julio\Desktop\G8 One\Java e Spring Framework G8 - ONE\2 - Desafio - LiteraLura\literalura)
+2025-08-19 14:32:42.074 [main] DEBUG com.literalura.literalura.LiteraluraApplication - Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-08-19 14:32:42.075 [main] INFO  com.literalura.literalura.LiteraluraApplication - The following 1 profile is active: "dev"
+2025-08-19 14:32:43.234 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-08-19 14:32:43.415 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4e3f2908
+2025-08-19 14:32:43.417 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-08-19 14:32:44.601 [main] INFO  com.literalura.literalura.service.ApiService - ApiService inicializado com timeout de 30s
+2025-08-19 14:32:45.574 [main] INFO  com.literalura.literalura.LiteraluraApplication - Started LiteraluraApplication in 4.002 seconds (process running for 4.333)
+2025-08-19 14:33:09.946 [main] INFO  com.literalura.literalura.service.ApiService - Buscando livros por título: 'Memorias Postumas'
+2025-08-19 14:33:09.947 [main] DEBUG com.literalura.literalura.service.ApiService - Iniciando requisição para: https://gutendex.com/books/?search=Memorias+Postumas
+2025-08-19 14:33:13.719 [main] DEBUG com.literalura.literalura.service.ApiService - Requisição concluída em 3770ms (tentativa 1)
+2025-08-19 14:33:13.719 [main] DEBUG com.literalura.literalura.service.ApiService - Resposta recebida: status=200, tamanho=52bytes
+2025-08-19 14:34:00.711 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-08-19 14:34:00.713 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
